@@ -1,0 +1,14 @@
+# cat=netl_async_loading; type=boolean; label=Load jQuery (via CDN)
+config.netlAsyncLoading.loadJQuery = 0
+
+# cat=netl_async_loading; type=text; label=The TYPO3 typeNum for fetching only one content element
+config.netlAsyncLoading.typeNum = 783467
+
+# cat=netl_async_loading; type=boolean; label=Replace all USER_INT content
+config.netlAsyncLoading.replaceAllUserInt = 0
+
+# cat=netl_async_loading; type=text; label=Define your own content replacement
+config.netlAsyncLoading.contentReplacement = <div id="netlAsyncLoadingId-###DATA_UID###" class="netlAsyncLoading" data-uri="###REQUEST_URI###"></div>
+
+# cat=netl_async_loading; type=text; label=Comma separated list of get and post parameter namespaces, your plug-ins use (eg. your_extension_pi1)
+config.netlAsyncLoading.GPVars = 

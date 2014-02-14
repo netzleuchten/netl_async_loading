@@ -1,0 +1,37 @@
+config {
+	netlAsyncLoading {
+		contentReplacement = {$config.netlAsyncLoading.contentReplacement}
+		typeNum = {$config.netlAsyncLoading.typeNum}
+		replaceAllUserInt = {$config.netlAsyncLoading.replaceAllUserInt}
+		GPVars = {$config.netlAsyncLoading.GPVars}
+	}
+}
+
+# Load tt_content
+netlAsyncLoadingContent = PAGE
+netlAsyncLoadingContent {
+
+	typeNum = {$config.netlAsyncLoading.typeNum}
+
+	config.diablePrefixComment = 1
+	config.disableAllHeaderCode = 1
+	config.admPanel = 0
+	config.additionalHeaders = X-ESI-RESPONSE
+
+	50 = RECORDS
+	50 {
+		dontCheckPid = 1
+		tables = tt_content
+		source {
+			data = GP:uid
+			wrap = tt_content_|
+			intval = 1
+		}
+	}
+}
+
+# Disable title and wrapping for ajax content
+[globalVar = GP:type = {$config.netlAsyncLoading.typeNum}]
+	tt_content.list.10 >
+	tt_content.stdWrap.innerWrap.cObject >
+[global]

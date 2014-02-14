@@ -1,0 +1,11 @@
+# cat=netl_async_loading; type=text; label=The TYPO3 typeNum for fetching only one content element
+config.netlAsyncLoading.typeNum = 783467
+
+# cat=netl_async_loading; type=boolean; label=Replace all USER_INT content
+config.netlAsyncLoading.replaceAllUserInt = 0
+
+# cat=netl_async_loading; type=text; label=Define your own content replacement
+config.netlAsyncLoading.contentReplacement = <esi:include src="###FULL_REQUEST_URI###" onerror="continue"/>
+
+# cat=netl_async_loading; type=text; label=Comma separated list of get and post parameter namespaces, your plug-ins use (eg. your_extension_pi1)
+config.netlAsyncLoading.GPVars = 

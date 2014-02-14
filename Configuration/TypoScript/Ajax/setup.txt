@@ -1,0 +1,94 @@
+config {
+	netlAsyncLoading {
+		contentReplacement = {$config.netlAsyncLoading.contentReplacement}
+		typeNum = {$config.netlAsyncLoading.typeNum}
+		replaceAllUserInt = {$config.netlAsyncLoading.replaceAllUserInt}
+		GPVars = {$config.netlAsyncLoading.GPVars}
+	}
+}
+
+# Include JS Code
+page.includeJSFooter {
+	netlAsyncLoading = typo3conf/ext/netl_async_loading/Resources/Public/JavaScript/ajax.js
+}
+
+# Include CSS
+page.includeCSS {
+	netlAsyncLoading = typo3conf/ext/netl_async_loading/Resources/Public/Stylesheet/ajax.css
+}
+
+# Add jQuery
+[globalVar = LIT:1 = {$config.netlAsyncLoading.loadJQuery}]
+page.includeJSFooterlibs.jquery = http://code.jquery.com/jquery-1.9.1.min.js
+page.includeJSFooterlibs.jquery.external = 1
+[global]
+
+# Add JS configuration to page header
+page.headerData.783467 = COA
+page.headerData.783467 {
+
+	wrap = <script language="JavaScript">|</script>
+
+	10 = TEXT
+	10.insertData = 1
+	10.value = var netlAsyncLoadingTypeNum = {$config.netlAsyncLoading.typeNum};
+
+	20 = TEXT
+	20 {
+		wrap = var netlAsyncLoadingBaseUrl = '|';
+		typolink.parameter.data = TSFE:id
+		typolink.returnLast=url
+	}
+}
+
+# Load tt_content
+netlAsyncLoadingContent = PAGE
+netlAsyncLoadingContent {
+
+	typeNum = {$config.netlAsyncLoading.typeNum}
+
+	config.diablePrefixComment = 1
+	config.disableAllHeaderCode = 1
+	config.xhtml_cleaning = 0
+	config.admPanel = 0
+
+	50 = CONTENT
+	50 {
+		table = tt_content
+		select {
+			andWhere {
+					data = GP:uid
+					wrap = uid=|
+					intval = 1
+			}
+		}
+	}
+}
+
+netlAsyncLoadingContent = PAGE
+netlAsyncLoadingContent {
+
+	typeNum = {$config.netlAsyncLoading.typeNum}
+
+	config.diablePrefixComment = 1
+	config.disableAllHeaderCode = 1
+	config.xhtml_cleaning = 0
+	config.admPanel = 0
+	
+	50 = RECORDS
+	50 {
+		dontCheckPid = 1
+		tables = tt_content
+		source {
+			data = GP:uid
+			wrap = tt_content_|
+			intval = 1
+		}
+	}
+}
+
+# Disable title and wrapping for ajax content
+[globalVar = GP:type = {$config.netlAsyncLoading.typeNum}]
+	tt_content.list.10 >
+	tt_content.stdWrap.innerWrap.cObject >
+[global]
